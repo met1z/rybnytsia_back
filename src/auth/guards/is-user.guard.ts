@@ -22,8 +22,6 @@ export class IsUserGuard implements CanActivate {
     const params = request.params;
     const user: Profile = request.user;
 
-    console.log(user)
-
     const userFromDb = await this.profileService.findOne(user.id);
 
     return userFromDb && (

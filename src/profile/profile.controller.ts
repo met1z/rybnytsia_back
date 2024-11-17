@@ -27,7 +27,7 @@ export class ProfileController {
   constructor(private service: ProfileService) {}
 
   @Post('login')
-  login(@Body() input: LoginInput): Promise<string> {
+  login(@Body() input: LoginInput): Promise<{ token: string; user?: Profile }> {
     return this.service.login(input);
   }
 

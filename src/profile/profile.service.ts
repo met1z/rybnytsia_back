@@ -67,15 +67,15 @@ export class ProfileService {
     return !!res.affected;
   }
 
-  async login(input: LoginInput): Promise<string> {
+  async login(input: LoginInput): Promise<{ token: string; user?: Profile }> {
     const valid = await this.validateUser(input.email, input.password);
     if (valid) {
       const user = await this.repository.findOneByOrFail({
         email: input.email,
       });
-      return this.authService.generateJWT(user);
+      return { token: await this.authService.generateJWT(user), user };
     } else {
-      return 'Wrong Credentials';
+      return { token: 'Wrong Credentials', user: undefined };
     }
   }
 
