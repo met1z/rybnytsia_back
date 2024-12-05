@@ -11,6 +11,7 @@ import { TypeOrmExceptionHandler } from './common/handler/typeorm-exception.hand
 import { ContactFormModule } from './contact-form/contact-form.module';
 import { FilesModule } from './files/files.module';
 import { ProfileModule } from './profile/profile.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ProfileModule } from './profile/profile.module';
     FilesModule,
     ContactFormModule,
     CategoryModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [

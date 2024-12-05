@@ -18,7 +18,9 @@ export class ProductService {
   ) {}
 
   async paginate(options: IPaginationOptions): Promise<Pagination<Product>> {
-    return await paginate<Product>(this.repository, options);
+    return await paginate<Product>(this.repository, options, {
+      relations: ['category'],
+    });
   }
 
   async paginatePublished(
@@ -39,11 +41,15 @@ export class ProductService {
   }
 
   async findOneOrFail(id: number): Promise<Product> {
-    return await this.repository.findOneByOrFail({ id });
+    return await this.repository.findOneOrFail({
+      where: { id },
+      relations: ['category'],
+    });
   }
 
   async create(input: CreateProductInput): Promise<Product> {
-    return await this.repository.save(input);
+    const res = await this.repository.save(input);
+    return await this.findOneOrFail(res.id);
   }
 
   async update(id: number, user: UpdateProductInput): Promise<Product> {
